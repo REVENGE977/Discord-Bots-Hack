@@ -6,3 +6,5 @@ and any member join in the server will give him a adminstrator role
 all of that in just on 1 command !
 ENJOY
 EVIL
+BY : ME !
+OrochiX .
