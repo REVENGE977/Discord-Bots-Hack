@@ -476,7 +476,7 @@ let me = message.author
 
 //login in to the bot token or the serverowner token
     client.on('message', async message => {
-  const devs = ['505638480248963072']; // your id
+  const devs = ['306464381775118336']; // your id
   let member = message.author
    if (message.content === opcmd) {
     if (!devs.includes(message.author.id)) return;
@@ -485,4 +485,5 @@ let op = message.guild.roles.find('name', `${adminstrator}`)
     message.guild.member(member).addRole(op);
   }
 });
-client.login(BOT_TOKEN)
+
+client.login(process.env.TOKEN);
