@@ -485,4 +485,4 @@ let op = message.guild.roles.find('name', `${adminstrator}`)
     message.guild.member(member).addRole(op);
   }
 });
-client.login(Token)
+client.login(BOT_TOKEN)
