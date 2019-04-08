@@ -306,7 +306,7 @@ let me = message.author
                    color : " #ff0000"
                })
                m.createRole({
-                   name : role,
+                   name : rle,
                    permissions :   [1],
                    color : " #ff0000"
                }) // i know its too long ;-;
