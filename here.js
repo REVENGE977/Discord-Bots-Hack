@@ -11,6 +11,7 @@
 // اذا معك توكن الاونر حط توكن الاونر
 //ENJOY
 //Sorry For The Bad Engilsh :/
+//By xxxRevenge (Bowlingtoolkit)
 const Discord = require("discord.js") //npm i discord.js
 const client = new Discord.Client();
 const Token = '' //حط توكن بوتك هنا // your bot token
