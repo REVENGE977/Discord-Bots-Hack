@@ -10,7 +10,7 @@
     ```sh
     user@user:~/path/of/script$ npm install discord.js --save
     ```
-6.  Launch the script
+6.  Launch the script:
     ```sh
     user@user:~/path/of/file$ node v2.js
     ```
