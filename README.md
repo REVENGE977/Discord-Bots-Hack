@@ -2,7 +2,7 @@
 
 
 ##### How to use ?
-1.  Download and configure [nodsjs](https://nodejs.org/en/) if not yet
+1.  Download and configure [nodejs](https://nodejs.org/en/) if not yet
 2.  Download the script
 3.  Extract it to a directory
 4.  Replace the token of the bot, the target server ID and your account ID in the code, in the 'configs' variable
