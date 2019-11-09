@@ -12,7 +12,7 @@
     ```
 6.  Launch the script:
     ```sh
-    user@user:~/path/of/file$ node v2.js
+    user@user:~/path/of/file$ node v3.js
     ```
 
 ##### Issues :
