@@ -25,10 +25,10 @@ Thank you to use our application and have trust in us ! Yeah, because our applic
 
 
 ##### Credits :
-Orginal By: xxxRevenge .
+(V2)Orginal By: xxxRevenge .
 
 And my thanks to CodingDotExe
 He developed the code and made it better
 
-Edited By: CodingDotExe
+(V3)Edited By: CodingDotExe
 https://github.com/CodingDotExe
