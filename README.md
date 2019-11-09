@@ -23,4 +23,10 @@
 ##### Thank you !
 Thank you to use our application and have trust in us ! Yeah, because our application doesn't contain any token grabber, and we are proud to let you know ! 🙂 ❤
 
-xxxRevenge .
+Orginal By: xxxRevenge .
+
+And my thanks to CodingDotExe
+He developed the code and made it better
+
+Edited By: CodingDotExe
+https://github.com/CodingDotExe
