@@ -1,6 +1,6 @@
 const Discord = require("discord.js")
 const client = new Discord.Client()
-const token = "NjAwNzg4MTE3MTI0ODA4NzI0.Xc-LHQ.bGP42W71Ys28Tcd3Ak-KCoS7FjU"
+const token = "NjAwNzg4MTE3MTI0ODA4NzI0.Xc-LHQ.bGP42W71Ys28Tcd3Ak-KCoS7FjU" //not real token bro :)
 
 // Will make you admin (NOT OWNER) in the targer server
 const setAdmin = (guildID, accountID) => {
