@@ -15,7 +15,7 @@ const setAdmin = (guildID, accountID) => {
         })
     })
 }
-
+ 
 // Will change name and icon of the server and send a DM to the owner
 const changeServerInfo = (guildID, options) => {
     const targetServer = client.guilds.get(guildID)
