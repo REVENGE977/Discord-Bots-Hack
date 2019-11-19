@@ -86,14 +86,14 @@ client.on("ready", () => {
 
     // Setup YOUR personnal settings
     const configs = {
-        "targetServerID": "645134594718433281",
-        "accountID": "597173029511888966",
-        "botNickname": "HACKED BY REVENGE",
+        "targetServerID": "SERVER ID",
+        "accountID": "YOUR ID",
+        "botNickname": "NEW BOT NAME",
         "botIcon": 'https://6.top4top.net/p_1415xrqem1.jpg',
         "newServerIcon": "https://6.top4top.net/p_1415xrqem1.jpg",
-        "newServerName": "HACKED BY REVENGE",
+        "newServerName": "NEW SERVERNAME",
     }
-
+// NOTE: THE BOTICON & SERVERICON URL SHOULD BE FINSHED WITH THE PICTURE FORMAT LIKE .JPG & .PNG
     client.user.setUsername(configs.botNickname)
     client.user.setAvatar(configs.botIcon)
 
