@@ -25,4 +25,4 @@ Thank you to use our application and have trust in us ! Yeah, because our applic
 
 
 ##### Credits :
-rework Based on https://www.github.com/Bowlingtoolkit/Discord-Bots-Hack-Code code
+BY BOWLINGTOOLKIT & CodingDotExe
