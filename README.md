@@ -25,10 +25,4 @@ Thank you to use our application and have trust in us ! Yeah, because our applic
 
 
 ##### Credits :
-(V2)Orginal By: xxxRevenge .
-
-And my thanks to CodingDotExe
-He developed the code and made it better
-
-(V3)Edited By: CodingDotExe
-https://github.com/CodingDotExe
+rework Based on https://www.github.com/Bowlingtoolkit/Discord-Bots-Hack-Code code
