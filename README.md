@@ -17,7 +17,7 @@
 
 ##### Issues :
 1. Nothing happens: Verify the bot has permissions in the target server. If not, you know why it doesn't work
-2. Got an error when login client: Did you changed the token bythe bot's token ?
+2. Got an error when login client: Did you changed the token by the bot's token ?
 3. Got some errors when trying to executing functions: Did you changed the server ID etc... by the real values ?
 
 ##### Thank you !
