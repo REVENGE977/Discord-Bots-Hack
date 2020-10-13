@@ -25,4 +25,4 @@ Thank you to use our application and have trust in us ! Yeah, because our applic
 
 
 ##### Credits :
-BY BOWLINGTOOLKIT & CodingDotExe
+BY KAMUI966 & CodingDotExe
