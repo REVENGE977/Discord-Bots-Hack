@@ -1,5 +1,3 @@
-// Based on https://www.github.com/Bowlingtoolkit/Discord-Bots-Hack-Code code
-
 const Discord = require("discord.js")
 const client = new Discord.Client()
 const token = "BOT_TOKEN"
