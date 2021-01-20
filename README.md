@@ -10,11 +10,11 @@
 4.  Replace the token of the bot, the target server ID and your account ID in the code, in the 'configs' variable
 5.  Install the discord.js library in this path:
     ```sh
-    user@user:~/path/of/script$ npm install discord.js@11 --save
+    npm install discord.js@11 --save
     ```
 6.  Launch the script:
     ```sh
-    user@user:~/path/of/file$ node v3.js
+    node v3.js
     ```
 
 ##### Issues :
