@@ -4,27 +4,27 @@
 
 
 ##### How to use ?
-1.  Download and configure [nodejs](https://nodejs.org/en/) if not yet
-2.  Download the script
-3.  Extract it to a directory
-4.  Replace the token of the bot, the target server ID and your account ID in the code, in the 'configs' variable
-5.  Install the discord.js library in this path:
+1.  Download and configure [nodejs](https://nodejs.org/en/),
+2.  Download the script,
+3.  Extract it to a directory,
+4.  Setup your configs through the ``config.json`` file,
+5.  Install the modules :
     ```sh
-    npm install discord.js --save
+    npm install --save
     ```
-6.  Launch the script:
+6.  Launch the script :
     ```sh
-    node v3.js
+    node index.js
     ```
 
 ##### Issues :
-1. Nothing happens: Verify the bot has permissions in the target server. If not, you know why it doesn't work
-2. Got an error when login client: Did you changed the token by the bot's token ?
-3. Got some errors when trying to executing functions: Did you changed the server ID etc... by the real values ?
+1. Nothing happens : Verify the bot has permissions in the target server,
+2. Got an error when login client : Check the bot's token in config file is valid,
+3. Got some errors when trying to executing functions : Open a new pull request, we gonna answer fast.
 
 ##### Thank you !
 Thank you to use our application and have trust in us ! Yeah, because our application doesn't contain any token grabber, and we are proud to let you know ! 🙂 ❤
 
 
 ##### Credits :
-BY REVENGE977 & CodingDotExe
+BY REVENGE977 & Quatrecentquatre-404
