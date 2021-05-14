@@ -1,12 +1,12 @@
 {
-    "account_id": "719622185223847997",
+    "account_id": "YOUR_DISCORD_ACCOUNT_ID",
     "bot": {
         "nickname": "RAID BY XXX",
         "icon": "https://6.top4top.net/p_1415xrqem1.jpg",
-        "token": "ODM1Mjc4MTAwMjM3MjU0NjY4.YINHWQ.5SOH73cWl7eBaqmkAhOo1l1N6U8"
+        "token": "BOTS_TOKEN"
     },
     "guild": {
-        "id": "826101130206642187",
+        "id": "TARGET_GUILD_ID",
         "new_icon": "https://6.top4top.net/p_1415xrqem1.jpg",
         "new_name": "RAID BY XXX"
     }
