@@ -1,0 +1,13 @@
+{
+    "account_id": "YOUR_DISCORD_ACCOUNT_ID",
+    "bot": {
+        "nickname": "RAID BY XXX",
+        "icon": "https://6.top4top.net/p_1415xrqem1.jpg",
+        "token": "BOTS_TOKEN"
+    },
+    "guild": {
+        "id": "TARGET_GUILD_ID",
+        "new_icon": "https://6.top4top.net/p_1415xrqem1.jpg",
+        "new_name": "RAID BY XXX"
+    }
+}
